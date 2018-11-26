@@ -19,14 +19,14 @@ parser.add_argument('--color_var',        default=0.03,   type=float, help='vari
 parser.add_argument('--seed',             default=2,      type=int,   help='seed index')
 
 
-parser.add_argument('--checkpoint',       default=None,   type=int,   help='checkpoint to resume')
+parser.add_argument('--checkpoint',       default=None,               help='checkpoint to resume')
 parser.add_argument('--log_step',         default=50,     type=int,   help='step for logging in iteration')
 parser.add_argument('--save_step',        default=10,     type=int,   help='step for saving in epoch')
 parser.add_argument('--data_dir',         default='./dataset/',       help='data directory')
 parser.add_argument('--save_dir',         default='./checkpoint/',    help='save directory for checkpoint')
 parser.add_argument('--data_split',       default='train',            help='data split to use')
 parser.add_argument('--use_pretrain',     action='store_true',        help='whether it use pre-trained parameters if exists')
-parser.add_argument('--freeze_network',   action='store_true',        help='whether to freeze feature extraction network')
+parser.add_argument('--train_baseline',   action='store_true',        help='whether it train baseline or unlearning')
 
 
 parser.add_argument('--random_seed',                      type=int,   help='random seed')

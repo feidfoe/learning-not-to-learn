@@ -33,6 +33,8 @@ def backend_setting(option):
         #os.environ['CUDA_VISIBLE_DEVICES'] = ','.join([str(i) for i in option.gpu_ids])
         torch.cuda.manual_seed_all(option.random_seed)
         cudnn.benchmark = option.cudnn_benchmark
+    if option.train_baseline:
+        option.is_train = True
 
 
 def main():

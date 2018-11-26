@@ -80,24 +80,12 @@ class Trainer(object):
     def _initialization(self):
         self.net.apply(self._weights_init)
 
-        if self.option.is_train:
-            model_dict = self.net.state_dict()
-            if self.option.use_pretrain:
-                pretrained_state = torch.load('pretrained/seed%d/%.03fmnist.pth'%(self.option.seed,self.option.color_var))['net_state_dict']
-                self.logger.info('pretrained/seed%d/%.03fmnist.pth'%(self.option.seed,self.option.color_var))
 
-                #if len(self.option.gpu_ids) > 1:
-                #    module_pretrained_state = {'module.video_%s'%k:v for k,v in pretrained_state.items()}
-                #else:
-                #    module_pretrained_state = {k:v for k,v in pretrained_state.items()}
-                #pretrained_state = {k:v for k,v in module_pretrained_state.items() if k in model_dict}
-
-                for k in pretrained_state.keys():
-                    msg = "Weight named %s resumed"%k
-                    self.logger.info(msg)
-
-                model_dict.update(pretrained_state)
-                self.net.load_state_dict(model_dict)
+        if self.option.is_train and self.option.use_pretrain:
+            if self.option.checkpoint is not None:
+                self._load_model()
+            else:
+                print("Pre-trained model not provided")
 
 
 
@@ -113,13 +101,13 @@ class Trainer(object):
             self.pred_net_g.eval()
             self.pred_net_b.eval()
 
+
+
     def _train_step(self, data_loader, step):
         _lambda = 0.01
 
-
         for i, (images,color_labels,labels) in enumerate(data_loader):
             
-            start_time = time.time()
             images = self._get_variable(images)
             color_labels = self._get_variable(color_labels)
             labels = self._get_variable(labels)
@@ -177,12 +165,33 @@ class Trainer(object):
             self.optim_g.step()
             self.optim_b.step()
 
-            single_iter_time = time.time() - start_time
-            # TODO: print elapsed time for iteration
             if i % self.option.log_step == 0:
                 msg = "[TRAIN] cls loss : %.6f, rgb : %.6f, MI : %.6f  (epoch %d.%02d)" \
                        % (loss_pred,loss_pred_color/3.,loss_pred_ps_color,step,int(100*i/data_loader.__len__()))
                 self.logger.info(msg)
+
+
+    def _train_step_baseline(self, data_loader, step):
+        for i, (images,color_labels,labels) in enumerate(data_loader):
+            
+            images = self._get_variable(images)
+            labels = self._get_variable(labels)
+
+            self.optim.zero_grad()
+            feat_label, pred_label = self.net(images)
+
+            # loss for self.net
+            loss_pred = self.loss(pred_label, torch.squeeze(labels))
+            loss_pred.backward()
+            self.optim.step()
+
+            # TODO: print elapsed time for iteration
+            if i % self.option.log_step == 0:
+                msg = "[TRAIN] cls loss : %.6f (epoch %d.%02d)" \
+                       % (loss_pred,step,int(100*i/data_loader.__len__()))
+                self.logger.info(msg)
+
+
 
 
     def _validate(self, data_loader):
@@ -253,9 +262,7 @@ class Trainer(object):
         print('checkpoint saved. step : %d'%step)
 
     def _load_model(self):
-        ckp_path = os.path.join(self.option.save_dir,self.option.exp_name,'checkpoint_step_%04d.pth'%self.option.checkpoint)
-        ckpt = torch.load(ckp_path)
-        assert ckpt['step'] == self.option.checkpoint
+        ckpt = torch.load(self.option.checkpoint)
         self.net.load_state_dict(ckpt['net_state_dict'])
         self.optim.load_state_dict(ckpt['optim_state_dict'])
 
@@ -266,20 +273,18 @@ class Trainer(object):
 
         self._mode_setting(is_train=True)
         timer = Timer(self.logger, self.option.max_step)
-        if self.option.checkpoint is None:
-            start_epoch = 0
-        else:
-            start_epoch = self.option.checkpoint
-        for step in range(start_epoch+1, self.option.max_step+1):
-            #data = next(train_loader)
-            self._train_step(train_loader,step)
+        start_epoch = 0
+        for step in range(start_epoch, self.option.max_step):
+            if self.option.train_baseline:
+                self._train_step_baseline(train_loader, step)
+            else:
+                self._train_step(train_loader,step)
             self.scheduler.step()
             self.scheduler_r.step()
             self.scheduler_g.step()
             self.scheduler_b.step()
-            timer()
 
-            if step == 1 or step % self.option.save_step == 0:
+            if step == 1 or step % self.option.save_step == 0 or step == (self.option.max_step-1):
                 if val_loader is not None:
                     self._validate(step, val_loader)
                 self._save_model(step)

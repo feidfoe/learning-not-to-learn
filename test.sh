@@ -10,6 +10,7 @@ nvidia-docker run -v `pwd`:`pwd` -w `pwd` --rm \
                   -it \
                   --ipc=host \
                   feidfoe/pytorch:latest \
-                  python main.py -e unlearn_0.02  --color_var 0.020 --lr 0.001 --use_pretrain --checkpoint checkpoint/baseline_0.02/checkpoint_step_0100.pth --cuda --is_train --data_split train
+                  python main.py -e unlearn_0.02  --color_var 0.020 --lr 0.001 --checkpoint checkpoint/unlearn_0.02/checkpoint_step_0090.pth --cuda --data_split test
+                  #python main.py -e baseline_0.02  --color_var 0.020 --lr 0.001 --checkpoint checkpoint/baseline_0.02/checkpoint_step_0100.pth --cuda --data_split test
 
 
