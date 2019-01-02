@@ -1,12 +1,8 @@
 
 gpuid=0
-datapath=<path_to_data>
-checkpointpath=<path_to_checkpoint>
 
 
 nvidia-docker run -v `pwd`:`pwd` -w `pwd` --rm \
-                  -v ${datapath}:`pwd`/dataset/ \
-                  -v ${checkpointpath}:`pwd`/checkpoint/ \
                   --name 'mnist_color_baseline_gpu'${gpuid} \
                   -e CUDA_VISIBLE_DEVICES=${gpuid} \
                   -it \
