@@ -10,6 +10,7 @@ This repository contains [PyTorch](https://pytorch.org) implementation for https
 
 ## Usage
 First, download the pretrained model and dataset.
+You can provide the directory for the dataset in 'option.py' (data_dir).
 
 To train, modify the path to the pretrained checkpoint in train.sh.
 Then, run the script with bash.
