@@ -1,7 +1,5 @@
 
 gpuid=0
-datapath=<path_to_data>
-checkpointpath=<path_to_checkpoint>
 
 
 
