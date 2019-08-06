@@ -1,5 +1,5 @@
 # learning-not-to-learn
-This repository contains [PyTorch](https://pytorch.org) implementation for https://arxiv.org/abs/1812.10352 (CVPR 2019).
+This repository contains [PyTorch](https://pytorch.org) implementation for https://arxiv.org/abs/1812.10352 (arXiv) or http://openaccess.thecvf.com/content_CVPR_2019/papers/Kim_Learning_Not_to_Learn_Training_Deep_Neural_Networks_With_Biased_CVPR_2019_paper.pdf(CVPR 2019).
 
 ## Requirements
 1. NVIDIA docker : This code requires nvidia docker to run. If the nvidia docker is installed, the docker image will be automatically pulled. Other required libraries are installed in the docker image.
