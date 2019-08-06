@@ -30,7 +30,13 @@ bash test.sh
 
 2. The main purpose of this code is to remove color information from extracted features.
 
-## Cite
+
+
+
+### Contact
+Byungju Kim(byungju.kim@kaist.ac.kr)
+
+### Citation
 ```
 @InProceedings{Kim_2019_CVPR,
 author = {Kim, Byungju and Kim, Hyunwoo and Kim, Kyungsu and Kim, Sungjin and Kim, Junmo},
@@ -40,7 +46,3 @@ month = {June},
 year = {2019}
 }
 ```
-
-
-### Contact
-Byungju Kim(byungju.kim@kaist.ac.kr)
