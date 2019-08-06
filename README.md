@@ -1,5 +1,5 @@
 # learning-not-to-learn
-This repository contains [PyTorch](https://pytorch.org) implementation for https://arxiv.org/abs/1812.10352.
+This repository contains [PyTorch](https://pytorch.org) implementation for https://arxiv.org/abs/1812.10352 (CVPR 2019).
 
 ## Requirements
 1. NVIDIA docker : This code requires nvidia docker to run. If the nvidia docker is installed, the docker image will be automatically pulled. Other required libraries are installed in the docker image.
@@ -29,6 +29,17 @@ bash test.sh
 1. This is an example of unlearning using colored-MNIST data.
 
 2. The main purpose of this code is to remove color information from extracted features.
+
+## Cite
+```
+@InProceedings{Kim_2019_CVPR,
+author = {Kim, Byungju and Kim, Hyunwoo and Kim, Kyungsu and Kim, Sungjin and Kim, Junmo},
+title = {Learning Not to Learn: Training Deep Neural Networks With Biased Data},
+booktitle = {The IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
+month = {June},
+year = {2019}
+}
+```
 
 
 ### Contact
