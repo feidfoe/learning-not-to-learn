@@ -1,6 +1,13 @@
 # learning-not-to-learn
 This repository contains [PyTorch](https://pytorch.org) implementation for https://arxiv.org/abs/1812.10352 which is published in CVPR2019.
 
+Since a neural network dfficiently learns data distribution, a network is likely to learn the bias information; the network can be as biased as the given data.
+
+## Conceptual Illustration
+![teaser2](https://user-images.githubusercontent.com/45156153/64670700-f44c2e80-d4a0-11e9-9ac0-283d332a8941.PNG)
+
+
+
 ## Requirements
 1. NVIDIA docker : This code requires nvidia docker to run. If the nvidia docker is installed, the docker image will be automatically pulled. Other required libraries are installed in the docker image.
 
