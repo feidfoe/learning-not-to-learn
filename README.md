@@ -39,6 +39,12 @@ For evaluation, run the test.sh script after modifying the paths.
 bash test.sh
 ```
 
+## Results
+![confmat](https://user-images.githubusercontent.com/45156153/64670751-1776de00-d4a1-11e9-8f20-5898c2665e10.PNG)
+
+Top row denotes the mean colors and their corresponding digit classes in training data. 
+The confusion matrices of baseline model show the network is biased owing to the biased data. 
+On the contrary, the networks trained by our algorithm are not biased to the color although they were trained with the same training data with the baseline
 
 ## Notes
 1. This is an example of unlearning using colored-MNIST data.
