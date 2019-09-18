@@ -1,4 +1,4 @@
-# learning-not-to-learn
+# Learning-Not-to-Learn
 This repository contains [PyTorch](https://pytorch.org) implementation for https://arxiv.org/abs/1812.10352 which is published in CVPR2019.
 
 
