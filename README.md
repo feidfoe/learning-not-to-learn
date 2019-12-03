@@ -1,5 +1,5 @@
 # Learning-Not-to-Learn
-This repository is the official implementation([PyTorch](https://pytorch.org) implementation) of https://arxiv.org/abs/1812.10352 which is published in CVPR2019.
+This repository is the official implementation([PyTorch](https://pytorch.org)) of https://arxiv.org/abs/1812.10352 which is published in CVPR2019.
 
 
 ## Conceptual Illustration
