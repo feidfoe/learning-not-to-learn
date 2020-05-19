@@ -45,18 +45,31 @@ Top row denotes the mean colors and their corresponding digit classes in trainin
 The confusion matrices of baseline model show the network is biased owing to the biased data. 
 On the contrary, the networks trained by our algorithm are not biased to the color although they were trained with the same training data with the baseline
 
+
+For comparison, we provide the experimental results with colored-MNIST. The table below is an alternative of Fig.4 in the paper.
+
+|          |    0.02    |   0.025    |    0.03    |   0.035    |   0.04     |    0.045   |    0.05    |
+| -------- | ---------- | ---------- | ---------- | ---------- | ---------- | ---------- | ---------- |
+| Baseline |   0.4055   |   0.4813   |   0.5996   |   0.6626   |   0.7333   |   0.7973   |   0.8450   |
+| BlineEye |   0.6741   |   0.7123   |   0.7883   |   0.8203   |   0.8638   |   0.8927   |   0.9159   |
+|   Gray   |   0.8374   |   0.8751   |   0.8996   |   0.9166   |   0.9325   |   0.9472   |   0.9596   |
+|   Ours   |   0.8185   |   0.8854   |   0.9137   |   0.9306   |   0.9406   |   0.9555   |   0.9618   |
+
+
 ## Notes
 1. This is an example of unlearning using colored-MNIST data.
 
 2. The main purpose of this code is to remove color information from extracted features.
 
-
+3. Since this algorithm uses adversarial training, it is not very stable. 
+In case you are suffering from the unstability, try pre-train f and g networks with h network detached, so the networks learn the bias. 
+Then, take h network in the training loop (adversarial training).
 
 
 ### Contact
 Byungju Kim(byungju.kim@kaist.ac.kr)
 
-### Citation
+### BibTeX for Citation
 ```
 @InProceedings{Kim_2019_CVPR,
 author = {Kim, Byungju and Kim, Hyunwoo and Kim, Kyungsu and Kim, Sungjin and Kim, Junmo},
